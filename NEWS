@@ -1,0 +1,6 @@
+webshot 0.3
+--------------------------------------------------------------------------------
+
+* The first CRAN release. Provided functions webshot()/appshot() to take
+  screenshots via PhantomJS, and resize()/shrink() to manipulate images via
+  GraphicsMagick/ImageMagick and OptiPNG.
