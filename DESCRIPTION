@@ -1,6 +1,6 @@
 Package: webshot
 Title: Take Screenshots of Web Pages
-Version: 0.3
+Version: 0.3.2
 Authors@R: c(
     person("Winston", "Chang", email = "winston@rstudio.com", role = c("aut", "cre")),
     person("Yihui", "Xie", role = "ctb"),
@@ -17,11 +17,12 @@ SystemRequirements: PhantomJS (http://phantomjs.org) for taking
         GraphicsMagick (http://www.graphicsmagick.org) and OptiPNG
         (http://optipng.sourceforge.net) for manipulating images.
 RoxygenNote: 5.0.1
+URL: https://github.com/wch/webshot/
 NeedsCompilation: no
-Packaged: 2016-03-03 22:31:07 UTC; winston
+Packaged: 2016-06-22 20:09:58 UTC; winston
 Author: Winston Chang [aut, cre],
   Yihui Xie [ctb],
   Nicolas Perriault [ctb] (The CasperJS library)
 Maintainer: Winston Chang <winston@rstudio.com>
 Repository: CRAN
-Date/Publication: 2016-03-04 00:05:25
+Date/Publication: 2016-06-23 00:47:07

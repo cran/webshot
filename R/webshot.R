@@ -103,6 +103,10 @@ webshot <- function(
     stop("Need url.")
   }
 
+  if (is_windows()) {
+    url <- fix_windows_url(url)
+  }
+
   if (!is.null(cliprect) && !is.null(selector)) {
     stop("Can't specify both cliprect and selector.")
 
@@ -140,6 +144,9 @@ webshot <- function(
   ))
 
   res <- phantom_run(args)
+
+  # Handle missing phantomjs
+  if (is.null(res)) return(NULL)
 
   if (res != 0) {
     stop("webshot.js returned failure value: ", res)

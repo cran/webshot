@@ -1,3 +1,19 @@
+webshot 0.3.2
+--------------------------------------------------------------------------------
+
+* Better handling of local paths in Windows. (#23)
+
+* More robust searching for ImageMagick. (#13)
+
+webshot 0.3.1
+--------------------------------------------------------------------------------
+
+* The leading tilde in the path of PhantomJS is expanded now (#19).
+
+* Changed URL for PhantomJS binaries so that `install_phantomjs()` doesn't hit
+  rate limits, and added workaround for downloading problems with R 3.3.0 and
+  3.3.1.
+
 webshot 0.3
 --------------------------------------------------------------------------------
 

@@ -1,10 +1,5 @@
 ## ----setup, include=FALSE, warning=FALSE---------------------------------
 library(webshot)
-# Exit early if PhantomJS is not found
-if (inherits(try(webshot:::find_phantom()), "try-error")) {
-  warning('PhantomJS is not found. This vignette will terminate from here.')
-  knitr::knit_exit()
-}
 
 knitr::opts_chunk$set(tidy = FALSE)
 
