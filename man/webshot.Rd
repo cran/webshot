@@ -6,13 +6,15 @@
 \usage{
 webshot(url = NULL, file = "webshot.png", vwidth = 992, vheight = 744,
   cliprect = NULL, selector = NULL, expand = NULL, delay = 0.2,
-  eval = NULL)
+  zoom = 1, eval = NULL)
 }
 \arguments{
-\item{url}{A URL to visit.}
+\item{url}{A vector of URLs to visit.}
 
-\item{file}{Name of output file. Should end with \code{.png}, \code{.pdf}, or
-\code{.jpeg}.}
+\item{file}{A vector of names of output files. Should end with \code{.png},
+\code{.pdf}, or \code{.jpeg}. If several screenshots have to be taken and
+only one filename is provided, then the function appends the index number
+of the screenshot to the file name.}
 
 \item{vwidth}{Viewport width. This is the width of the browser "window".}
 
@@ -22,21 +24,39 @@ webshot(url = NULL, file = "webshot.png", vwidth = 992, vheight = 744,
 are both unspecified, the clipping rectangle will contain the entire page.
 This can be the string \code{"viewport"}, in which case the clipping
 rectangle matches the viewport size, or it can be a four-element numeric
-vector specifying the top, left, width, and height. This option is not
-compatible with \code{selector}.}
+vector specifying the top, left, width, and height. When taking screenshots
+of multiple URLs, this parameter can also be a list with same length as
+\code{url} with each element of the list being "viewport" or a
+four-elements numeric vector. This option is not compatible with
+\code{selector}.}
 
 \item{selector}{One or more CSS selectors specifying a DOM element to set the
 clipping rectangle to. The screenshot will contain these DOM elements. For
 a given selector, if it has more than one match, only the first one will be
-used. This option is not compatible with \code{cliprect}.}
+used. This option is not compatible with \code{cliprect}. When taking
+screenshots of multiple URLs, this parameter can also be a list with same
+length as \code{url} with each element of the list containing a vector of
+CSS selectors to use for the corresponding URL.}
 
 \item{expand}{A numeric vector specifying how many pixels to expand the
 clipping rectangle by. If one number, the rectangle will be expanded by
 that many pixels on all sides. If four numbers, they specify the top,
-right, bottom, and left, in that order.}
+right, bottom, and left, in that order. When taking screenshots of multiple
+URLs, this parameter can also be a list with same length as \code{url} with
+each element of the list containing a single number or four numbers to use
+for the corresponding URL.}
 
 \item{delay}{Time to wait before taking screenshot, in seconds. Sometimes a
 longer delay is needed for all assets to display properly.}
+
+\item{zoom}{A number specifying the zoom factor. A zoom factor of 2 will
+result in twice as many pixels vertically and horizontally. Note that using
+2 is not exactly the same as taking a screenshot on a HiDPI (Retina)
+device: it is like increasing the zoom to 200% in a desktop browser and
+doubling the height and width of the browser window. This differs from
+using a HiDPI device because some web pages load different,
+higher-resolution images when they know they will be displayed on a HiDPI
+device (but using zoom will not report that there is a HiDPI device).}
 
 \item{eval}{An optional string with JavaScript code which will be evaluated
 after opening the page and waiting for \code{delay}, but before calculating
@@ -56,6 +76,12 @@ webshot("https://github.com/rstudio/shiny")
 
 # Might need a longer delay for all assets to display
 webshot("http://rstudio.github.io/leaflet", delay = 0.5)
+
+# One can also take screenshots of several URLs with only one command.
+# This is more efficient than calling 'webshot' multiple times.
+webshot(c("https://github.com/rstudio/shiny",
+          "http://rstudio.github.io/leaflet"),
+        delay = 0.5)
 
 # Clip to the viewport
 webshot("http://rstudio.github.io/leaflet", "leaflet-viewport.png",
@@ -97,7 +123,7 @@ webshot("http://www.reddit.com/", "reddit-input.png",
 )
 
 # Result can be piped to other commands like resize() and shrink()
-webshot("http://www.google.com/", "google-small.png") \%>\%
+webshot("https://www.r-project.org/", "r-small.png") \%>\%
  resize("75\%") \%>\%
  shrink()
 

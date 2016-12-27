@@ -4,23 +4,31 @@
 #' appearance -- it is lossless compression. This requires GraphicsMagick
 #' (recommended) or ImageMagick to be installed.
 #'
-#' @param filename Name of image to resize.
+#' @param filename Character vector containing the path of images to resize.
 #' @param geometry Scaling specification. Can be a percent, as in \code{"50\%"},
 #'   or pixel dimensions like \code{"120x120"}, \code{"120x"}, or \code{"x120"}.
-#'   Any valid ImageMagick geometry specifation can be used.
+#'   Any valid ImageMagick geometry specifation can be used. If \code{filename}
+#'   contains multiple images, this can be a vector to specify distinct sizes
+#'   for each image.
 #'
 #' @examples
 #' if (interactive()) {
 #'   # Can be chained with webshot() or appshot()
-#'   webshot("http://www.google.com/", "google-small-1.png") %>%
+#'   webshot("https://www.r-project.org/", "r-small-1.png") %>%
 #'     resize("75%")
 #'
 #'   # Generate image that is 400 pixels wide
-#'   webshot("http://www.google.com/", "google-small-2.png") %>%
+#'   webshot("https://www.r-project.org/", "r-small-2.png") %>%
 #'     resize("400x")
 #' }
 #' @export
 resize <- function(filename, geometry) {
+  mapply(resize_one, filename = filename, geometry = geometry,
+         SIMPLIFY = FALSE, USE.NAMES = FALSE)
+  structure(filename, class = "webshot")
+}
+
+resize_one <- function(filename, geometry) {
   # Handle missing phantomjs
   if (is.null(filename)) return(NULL)
 
@@ -54,9 +62,8 @@ resize <- function(filename, geometry) {
   if (res != 0)
     stop ("Resizing with `gm convert`, `magick convert` or `convert` failed.")
 
-  invisible(filename)
+  filename
 }
-
 
 #' Shrink file size of a PNG
 #'
@@ -68,15 +75,21 @@ resize <- function(filename, geometry) {
 #' the last step. Otherwise, if the resizing happens after file shrinking, it
 #' will be as if the shrinking didn't happen at all.
 #'
-#' @param filename Name of image to shrink. Must be a PNG file.
+#' @param filename Character vector containing the path of images to resize.
+#'   Must be PNG files.
 #'
 #' @examples
 #' if (interactive()) {
-#'   webshot("http://www.google.com/", "google-shrink.png") %>%
+#'   webshot("https://www.r-project.org/", "r-shrink.png") %>%
 #'     shrink()
 #' }
 #' @export
 shrink <- function(filename) {
+  mapply(shrink_one, filename = filename, SIMPLIFY = FALSE, USE.NAMES = FALSE)
+  structure(filename, class = "webshot")
+}
+
+shrink_one <- function(filename) {
   # Handle missing phantomjs
   if (is.null(filename)) return(NULL)
 
@@ -89,5 +102,5 @@ shrink <- function(filename) {
   if (res != 0)
     stop ("Shrinking with `optipng` failed.")
 
-  invisible(filename)
+  filename
 }

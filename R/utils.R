@@ -165,7 +165,7 @@ available_port <- function(port) {
 # 403 for HEAD requests. See
 # https://stat.ethz.ch/pipermail/r-devel/2016-June/072852.html
 download <- function(url, destfile, mode = "w") {
-  if (getRversion() == "3.3.0" || getRversion() == "3.3.1") {
+  if (getRversion() >= "3.3.0") {
     download_no_libcurl(url, destfile, mode = mode)
 
   } else if (is_windows() && getRversion() < "3.2") {
@@ -246,13 +246,18 @@ download_old_win <- function(url, ...) {
 fix_windows_url <- function(url) {
   if (!is_windows()) return(url)
 
-  # If it's a "c:/path/file.html" path, or contains any backslashs, like
-  # "c:\path", "\\path\\file.html", or "/path\\file.html", we need to fix it up.
-  if (grepl("^[a-zA-Z]:/", url) || grepl("\\", url, fixed = TRUE)) {
-    paste0("file:///", normalizePath(url, winslash = "/"))
-  } else {
-    url
+  fix_one <- function(x) {
+    # If it's a "c:/path/file.html" path, or contains any backslashs, like
+    # "c:\path", "\\path\\file.html", or "/path\\file.html", we need to fix it
+    # up.
+    if (grepl("^[a-zA-Z]:/", x) || grepl("\\", x, fixed = TRUE)) {
+      paste0("file:///", normalizePath(x, winslash = "/"))
+    } else {
+      x
+    }
   }
+
+  vapply(url, fix_one, character(1), USE.NAMES = FALSE)
 }
 
 

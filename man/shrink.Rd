@@ -7,7 +7,8 @@
 shrink(filename)
 }
 \arguments{
-\item{filename}{Name of image to shrink. Must be a PNG file.}
+\item{filename}{Character vector containing the path of images to resize.
+Must be PNG files.}
 }
 \description{
 This does not change size of the image in pixels, nor does it affect
@@ -21,7 +22,7 @@ will be as if the shrinking didn't happen at all.
 }
 \examples{
 if (interactive()) {
-  webshot("http://www.google.com/", "google-shrink.png") \%>\%
+  webshot("https://www.r-project.org/", "r-shrink.png") \%>\%
     shrink()
 }
 }
