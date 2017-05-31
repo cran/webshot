@@ -16,15 +16,31 @@ fig_path <- local({
 # A hack to automatically include the webshot output as images in R Markdown
 shot <- function(..., file = fig_path(), FUN) {
   opts <- knitr::opts_current$get()
-  if (is.null(opts)) {
-    vwidth <- 992; vheight <- 744
-  } else {
+  if (is.null(opts$vwidth))
+    vwidth <- 992
+  else
     vwidth <- opts$fig.width * opts$dpi
+
+  if (is.null(opts$vheight))
+    vheight <- 744
+  else
     vheight <- opts$fig.height * opts$dpi
-  }
-  knitr::include_graphics(
-    FUN(..., file = file, vwidth = vwidth, vheight = vheight)
-  )
+
+  tryCatch({
+    filepath <- FUN(..., file = file, vwidth = vwidth, vheight = vheight)
+
+    # If phantomjs isn't installed, we'll end up here. We don't want the
+    # vignette to error out because it could cause problems on CRAN on platforms
+    # that don't have phantomjs installed.
+    if (is.null(filepath)) {
+      return(invisible())
+    }
+
+    knitr::include_graphics(filepath)
+  },
+  error = function(e) {
+    invisible()
+  })
 }
 webshot <- function(...) shot(..., FUN = webshot::webshot)
 appshot <- function(...) shot(..., FUN = webshot::appshot)
