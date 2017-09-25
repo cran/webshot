@@ -86,9 +86,9 @@ webshot("https://github.com/rstudio/shiny/", selector = "ul.numbers-summary")
 #    });"
 #  )
 
-## ----fig.align='center'--------------------------------------------------
-appdir <- system.file("examples", "01_hello", package="shiny")
-appshot(appdir, delay = 3)
+## ----fig.align='center', eval=FALSE--------------------------------------
+#  appdir <- system.file("examples", "01_hello", package="shiny")
+#  appshot(appdir, delay = 3)
 
 ## ----eval=FALSE----------------------------------------------------------
 #  # Result can be piped to other commands like resize() and shrink()
