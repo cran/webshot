@@ -1,12 +1,12 @@
-a6236a39e1b0c84bb132583cf1c79487 *DESCRIPTION
-0ec7671097a9f8d0f4b5fac2481f10f7 *NAMESPACE
-79dfc7e96fd011433440731e49bfbb60 *NEWS.md
+fb5c876e4f59d88424e76c8bd9abc5f3 *DESCRIPTION
+cee5c3d1c2d36c835832ebe39c019a93 *NAMESPACE
+605e07b43e882e12ee774401c93c655f *NEWS.md
 dc6d26d0e55407ff7a9f4c4d38b14b21 *R/appshot.R
 a251b2655b27acd514a97ba7e81d030e *R/image.R
 9aab2581ff22019c5db573e06686f2e1 *R/pipe.R
 d61de066985c86072a8787787f57bcb1 *R/process.R
 343518cc64a49f4be75fcd13c3edd588 *R/rmdshot.R
-a9ee76be138f61b1e2339e8d59b3cada *R/utils.R
+637986bfac593f3dd7cca83f9cd43fa6 *R/utils.R
 6c1c9ae227ef4510183b1d04c6334a5d *R/wait.R
 c0fa68e3e95b05a0bef6f0367b66565c *R/webshot.R
 0ec7fbcd065104b0422fafdc554338b6 *R/zzz.R
@@ -30,7 +30,8 @@ e80238bf3b08224189b02ad8f72e5510 *inst/casperjs/modules/xunit.js
 812b510d5b867989bb579f28f84034f1 *inst/utils.js
 a17e8668b2e030897bde9777df05675e *inst/webshot.js
 efc074e8bd5a1f671b82b2d6fbfc5a63 *man/appshot.Rd
-c8f578fa95f6cee390896f3846a48682 *man/install_phantomjs.Rd
+52e5cf919d62273d1ba13fdfcb02c870 *man/install_phantomjs.Rd
+bbbd69005bbc236770883a3c09265626 *man/is_phantomjs_installed.Rd
 8746117df51085ef0b56e360839d7095 *man/reexports.Rd
 828d38bfd37b3502800cb65f4cb64049 *man/resize.Rd
 20b4820047b1379b8f321b4575ce2fe3 *man/rmdshot.Rd
