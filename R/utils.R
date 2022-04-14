@@ -95,6 +95,17 @@ is_phantomjs_version_latest <- function(requested_version) {
   # Obtain the installed version
   installed_phantomjs_version <- phantomjs_version()
 
+  # For versions 2.5.0-beta and 2.5.0-beta2, phantomjs reports its version to be
+  # "2.5.0-development".
+  #
+  # However, for the requested version, we have the names "2.5.0-beta" and
+  # "2.5.0-beta2".
+  #
+  # For simplicity, we'll just remove the "-development" or "-beta" or "-beta2"
+  # so they all map to "2.5.0".
+  installed_phantomjs_version <- sub("-development", "", installed_phantomjs_version)
+  requested_version           <- sub("-beta.*",      "", requested_version)
+
   # Check if the installed version is latest compared to requested version.
   as.package_version(installed_phantomjs_version) >= requested_version
 }
@@ -105,43 +116,42 @@ is_phantomjs_version_latest <- function(requested_version) {
 #' Download the zip package, unzip it, and copy the executable to a system
 #' directory in which \pkg{webshot} can look for the PhantomJS executable.
 #'
-#' @details
-#' This function was designed primarily to help Windows users since it is
-#' cumbersome to modify the \code{PATH} variable. Mac OS X users may install
-#' PhantomJS via Homebrew. If you download the package from the PhantomJS
-#' website instead, please make sure the executable can be found via the
-#' \code{PATH} variable.
+#' @details This function was designed primarily to help Windows users since it
+#'   is cumbersome to modify the \code{PATH} variable. Mac OS X users may
+#'   install PhantomJS via Homebrew. If you download the package from the
+#'   PhantomJS website instead, please make sure the executable can be found via
+#'   the \code{PATH} variable.
 #'
-#' On Windows, the directory specified by the environment variable
-#' \code{APPDATA} is used to store \file{phantomjs.exe}. On OS X, the directory
-#' \file{~/Library/Application Support} is used. On other platforms (such as
-#' Linux), the directory \file{~/bin} is used. If these directories are not
-#' writable, the directory \file{PhantomJS} under the installation directory of
-#' the \pkg{webshot} package will be tried. If this directory still fails, you
-#' will have to install PhantomJS by yourself.
+#'   On Windows, the directory specified by the environment variable
+#'   \code{APPDATA} is used to store \file{phantomjs.exe}. On OS X, the
+#'   directory \file{~/Library/Application Support} is used. On other platforms
+#'   (such as Linux), the directory \file{~/bin} is used. If these directories
+#'   are not writable, the directory \file{PhantomJS} under the installation
+#'   directory of the \pkg{webshot} package will be tried. If this directory
+#'   still fails, you will have to install PhantomJS by yourself.
 #'
-#' If PhantomJS is not already installed on the computer, this function will
-#' attempt to install it. However, if the version of PhantomJS installed is
-#' greater than or equal to the requested version, this function will not
-#' perform the installation procedure again unless the \code{force} parameter is
-#' set to \code{TRUE}. As a result, this function may also be used to reinstall or
-#' downgrade the version of PhantomJS found.
+#'   If PhantomJS is not already installed on the computer, this function will
+#'   attempt to install it. However, if the version of PhantomJS installed is
+#'   greater than or equal to the requested version, this function will not
+#'   perform the installation procedure again unless the \code{force} parameter
+#'   is set to \code{TRUE}. As a result, this function may also be used to
+#'   reinstall or downgrade the version of PhantomJS found.
 #'
 #' @param version The version number of PhantomJS.
 #' @param baseURL The base URL for the location of PhantomJS binaries for
 #'   download. If the default download site is unavailable, you may specify an
 #'   alternative mirror, such as
 #'   \code{"https://bitbucket.org/ariya/phantomjs/downloads/"}.
-#' @param force Install PhantomJS even if the version installed is the
-#'   latest or if the requested version is older. This is useful to reinstall
-#'   or downgrade the version of PhantomJS.
+#' @param force Install PhantomJS even if the version installed is the latest or
+#'   if the requested version is older. This is useful to reinstall or downgrade
+#'   the version of PhantomJS.
 #' @return \code{NULL} (the executable is written to a system directory).
 #' @export
 install_phantomjs <- function(version = '2.1.1',
     baseURL = 'https://github.com/wch/webshot/releases/download/v0.3.1/',
     force = FALSE) {
 
-  if (is_phantomjs_version_latest(version) && !force) {
+  if (!force && is_phantomjs_version_latest(version)) {
       message('It seems that the version of `phantomjs` installed is ',
               'greater than or equal to the requested version.',
               'To install the requested version or downgrade to another version, ',
@@ -342,8 +352,10 @@ fix_windows_url <- function(url) {
   fix_one <- function(x) {
     # If it's a "c:/path/file.html" path, or contains any backslashs, like
     # "c:\path", "\\path\\file.html", or "/path\\file.html", we need to fix it
-    # up.
-    if (grepl("^[a-zA-Z]:/", x) || grepl("\\", x, fixed = TRUE)) {
+    # up. However, we need to leave paths that are already URLs alone.
+    if (grepl("^[a-zA-Z]:/", x) ||
+        (!grepl(":", x, fixed = TRUE) && grepl("\\", x, fixed = TRUE)))
+    {
       paste0("file:///", normalizePath(x, winslash = "/"))
     } else {
       x
