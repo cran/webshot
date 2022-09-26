@@ -1,16 +1,16 @@
-d9fd1419c594cbdefb4fa0469f131b26 *DESCRIPTION
+635e19816f1a412cc00b47a66c206515 *DESCRIPTION
 cee5c3d1c2d36c835832ebe39c019a93 *NAMESPACE
-c26853defebc5deee18fa1d343ae8ace *NEWS.md
+6fc5b82e0e9eabbec81703daeb7f10c0 *NEWS.md
 dc6d26d0e55407ff7a9f4c4d38b14b21 *R/appshot.R
 a251b2655b27acd514a97ba7e81d030e *R/image.R
 9aab2581ff22019c5db573e06686f2e1 *R/pipe.R
 d61de066985c86072a8787787f57bcb1 *R/process.R
 343518cc64a49f4be75fcd13c3edd588 *R/rmdshot.R
-fd7a4cc8850ae6240e1eaf47198d9b35 *R/utils.R
+b24e2d4800f900a9d7553d4d3269ef8f *R/utils.R
 6c1c9ae227ef4510183b1d04c6334a5d *R/wait.R
 d532018d7a4f84c1b5553d9bfc8e3c12 *R/webshot.R
 0ec7fbcd065104b0422fafdc554338b6 *R/zzz.R
-40d75484c07128120523241d172320b0 *README.md
+1a44c51dd8547e75e4bda8ecb54023f7 *README.md
 7fa170eaadaa58b90accf3b78e113fe4 *inst/NOTICE
 a640c5cbbfd61cb3a9d7d185ca7d03f2 *inst/casperjs/bin/bootstrap.js
 de1e952c0a5cb9571d8fac141e2e20a7 *inst/casperjs/modules/casper.js
@@ -39,3 +39,5 @@ bbbd69005bbc236770883a3c09265626 *man/is_phantomjs_installed.Rd
 8b925de2a878473ee27eb87f4601b082 *man/rmdshot.Rd
 a3484b93ef9510a786ea3187ce298162 *man/shrink.Rd
 2d3cc85a3e0461798a35e1c290759a72 *man/webshot.Rd
+5b196372c93af922ad9c49dfbaf3cf9d *tests/testthat.R
+fb54b15d6794e3be8dbec219a8632928 *tests/testthat/test-url.R
