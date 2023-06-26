@@ -1,6 +1,6 @@
-635e19816f1a412cc00b47a66c206515 *DESCRIPTION
+ebb3275a4d8c2f4c9c950731297c08d8 *DESCRIPTION
 cee5c3d1c2d36c835832ebe39c019a93 *NAMESPACE
-6fc5b82e0e9eabbec81703daeb7f10c0 *NEWS.md
+b84cb3634c0ec950357331664547a832 *NEWS.md
 dc6d26d0e55407ff7a9f4c4d38b14b21 *R/appshot.R
 a251b2655b27acd514a97ba7e81d030e *R/image.R
 9aab2581ff22019c5db573e06686f2e1 *R/pipe.R
@@ -8,9 +8,9 @@ d61de066985c86072a8787787f57bcb1 *R/process.R
 343518cc64a49f4be75fcd13c3edd588 *R/rmdshot.R
 b24e2d4800f900a9d7553d4d3269ef8f *R/utils.R
 6c1c9ae227ef4510183b1d04c6334a5d *R/wait.R
-d532018d7a4f84c1b5553d9bfc8e3c12 *R/webshot.R
+4cc191c08b558d487143df7fd0aa95d8 *R/webshot.R
 0ec7fbcd065104b0422fafdc554338b6 *R/zzz.R
-1a44c51dd8547e75e4bda8ecb54023f7 *README.md
+b88cfc6c77760842ccb020abc93dea47 *README.md
 7fa170eaadaa58b90accf3b78e113fe4 *inst/NOTICE
 a640c5cbbfd61cb3a9d7d185ca7d03f2 *inst/casperjs/bin/bootstrap.js
 de1e952c0a5cb9571d8fac141e2e20a7 *inst/casperjs/modules/casper.js
